@@ -80,12 +80,12 @@ module.exports = (
       path: path.resolve(outputBundleDir),
       publicPath: "${publicPath}",
       ${
-  optionalLibrary
-    ? `library: "${libraryName}",
+        optionalLibrary
+          ? `library: "${libraryName}",
       libraryTarget: "${libraryTarget}",
       `
-    : ""
-  }
+          : ""
+      }
     },
     externals: {${externals}},
     mode: "${mode}",
@@ -93,8 +93,8 @@ module.exports = (
     target: "web",
     optimization: {
       ${
-  mode === "production"
-    ? `minimizer: [
+        mode === "production"
+          ? `minimizer: [
         new UglifyJsPlugin({
           uglifyOptions: {
             parse: {
@@ -120,17 +120,17 @@ module.exports = (
         }),
         new OptimizeCSSAssetsPlugin(),
       ],`
-    : ""
-  }
+          : ""
+      }
       ${
-  splitChunks
-    ? `splitChunks: {
+        splitChunks
+          ? `splitChunks: {
         chunks: 'all',
         name: 'vendors',
       },
       runtimeChunk: true,`
-    : ""
-  }
+          : ""
+      }
     },
     module: {
       rules: [
@@ -140,10 +140,10 @@ module.exports = (
               test: /\\.module\\.css$/,
               use: [
                 ${
-  mode === "production"
-    ? "MiniCssExtractPlugin.loader"
-    : '"style-loader"'
-  },
+                  mode === "production"
+                    ? "MiniCssExtractPlugin.loader"
+                    : '"style-loader"'
+                },
                 {
                   loader: "css-loader",
                   options: {
@@ -157,10 +157,10 @@ module.exports = (
               test: /\\.module\\.scss$/,
               use: [
                 ${
-  mode === "production"
-    ? "MiniCssExtractPlugin.loader"
-    : '"style-loader"'
-  },
+                  mode === "production"
+                    ? "MiniCssExtractPlugin.loader"
+                    : '"style-loader"'
+                },
                 {
                   loader: "css-loader",
                   options: {
@@ -176,10 +176,10 @@ module.exports = (
               test: /\\.css$/,
               use: [
                 ${
-  mode === "production"
-    ? "MiniCssExtractPlugin.loader"
-    : '"style-loader"'
-  },
+                  mode === "production"
+                    ? "MiniCssExtractPlugin.loader"
+                    : '"style-loader"'
+                },
                 "css-loader"
               ]
             },
@@ -187,10 +187,10 @@ module.exports = (
               test: /\\.scss$/,
               use: [
                 ${
-  mode === "production"
-    ? "MiniCssExtractPlugin.loader"
-    : '"style-loader"'
-  },
+                  mode === "production"
+                    ? "MiniCssExtractPlugin.loader"
+                    : '"style-loader"'
+                },
                 {
                   loader: "css-loader",
                   options: {
@@ -245,8 +245,8 @@ module.exports = (
           template: htmlTemplatePath,
           inject: true,
           ${
-  mode === "production"
-    ? `minify: {
+            mode === "production"
+              ? `minify: {
             removeComments: true,
             collapseWhitespace: true,
             removeRedundantAttributes: true,
@@ -258,8 +258,8 @@ module.exports = (
             minifyCSS: true,
             minifyURLs: true,
           }`
-    : ""
-  }
+              : ""
+          }
         })]
         : []
       ),
@@ -268,21 +268,21 @@ module.exports = (
         NODE_ENV: "${mode}",
       }),
       ${
-  mode === "production"
-    ? `new MiniCssExtractPlugin({
+        mode === "production"
+          ? `new MiniCssExtractPlugin({
         filename: '[name].[contenthash].css',
         chunkFilename: '[name].[contenthash].chunk.css',
       }),`
-    : ""
-  }
+          : ""
+      }
       ${
-  // Chunk splitting is enabled by default.
-  splitChunks
-    ? `new webpack.optimize.LimitChunkCountPlugin({
+        // Chunk splitting is enabled by default.
+        splitChunks
+          ? `new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
       }),`
-    : ""
-  }
+          : ""
+      }
     ]
   };
 }
